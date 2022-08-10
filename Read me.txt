@@ -11,7 +11,7 @@ Author intro:
     My name is Hugo Hu, a quant summer analyst of Counterparty & Credit Trading, MRM in 2022. 
     I was assgined to do M1031 AJD model's AMR and accordingly have the opportunity to do a modelling and model-validation process for 
     simulated default events as poisson processes from CDS spread curve. Through the process, really learned a lot. 
-    Please feel free to contact me if you have any questions regarding the process and codes. E-mail address: hugohu@uchicago.edu / hugohuboss@gmail.com
+    Please feel free to contact me if you have any questions regarding the process and codes. 
     
 Project intension:
     /Goal/: As an experiment-oriented benchmark compared to M1031 validations. Acting as a benchmark model for future risk dynamics calculation and building blocks
