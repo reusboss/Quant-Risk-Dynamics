@@ -1,0 +1,68 @@
+'''
+Id:          "$Id$"
+Copyright:   Copyright (c) 2022 Bank of America Merrill Lynch, All Rights Reserved
+Description:
+Test:
+'''
+
+Thank you for reading the 'Read_Me' file before running the 'project.py'
+
+Author intro: 
+    My name is Hugo Hu, a quant summer analyst of Counterparty & Credit Trading, MRM in 2022. 
+    I was assgined to do M1031 AJD model's AMR and accordingly have the opportunity to do a modelling and model-validation process for 
+    simulated default events as poisson processes from CDS spread curve. Through the process, really learned a lot. 
+    Please feel free to contact me if you have any questions regarding the process and codes. E-mail address: hugohu@uchicago.edu / hugohuboss@gmail.com
+    
+Project intension:
+    /Goal/: As an experiment-oriented benchmark compared to M1031 validations. Acting as a benchmark model for future risk dynamics calculation and building blocks
+    
+    1. Input a cds spread curve and use bootstrapping algorithm to calculate survival prob and default intensity(hazard rates), which is the input of poisson process
+    2. Having a term structure from the CDS Spread
+    3. Test and validate a constant-lambda inputted model of homogeneous poisson process
+        3.1 First method: Testing Nt(Number of events for each simulation) and having a close-to-poisson distribution
+        3.2 Second method: Picking any two subintervals from each simulation, the number of events between them should have same close-to-poisson distribution
+    4. Generate and simulate inhomogeneous poisson process from the term structure of hazard rates from CDS
+    5. Validate them as step 3
+
+Project assumptions:
+    1. Assume directly using pre-determined CDS Spread values in bps units(Ignoring inputting quarterly-paid protection legs and premium legs)
+    2. 12-month LIBOR 3.5% (risk-free for continuous compounding discount factor)
+    3. Assume CDS Tenors: 1Y, 2Y, 3Y, 5Y, 7Y, 10Y
+    4. Assume non-inverted CDS spread curve -> increasing through time (Avoid negative hazard rates)
+    5. Assume Recovery Rate 40%
+    
+CDS Curve input:
+    Maturity    DF              Spread      Recovery
+    0           0               0           0.4
+    1           0.965605        110         0.4
+    2           0.932394        120         0.4
+    3           0.900325        140         0.4
+    5           0.839457        150         0.4
+    7           0.782705        160         0.4
+    10          0.704688        165         0.4
+    
+    
+Function description:
+    1. class UpperException --> defining an exception class for main inputs (Not used within the codes)
+    2. class CDS_Curve --> Self-determine and input cds dataframe if not using any csv files
+    3. class Random_Generator --> Generating a random series based on another random series in Cholesky Decomposition way
+    4. class Poisson_Distribution --> Easy testing for poisson pmf/cdf and plottings
+    5. class Poisson_Process --> A class for Poisson Process simulation and validations
+        5.1 lambda_t(self,t) --> the step function from the term structure of lambda hazard rate functions(used for thinning in inhomogeneous simulation)
+        5.2 inhomogeneous_simulation(self, steps) --> Simulations in thinning algo
+        5.3 inhomogeneous_validation(self, steps) --> Validation in numbers of simulation times
+        5.4 step_cumulative(self,lambd, steps, paths) --> Plotting homogeneous stepwise poisson process
+        5.5 homogeneous_simulation(self, lambd, steps, paths) --> Official way of simulating stepwise homogeneous process(used)
+        5.5 poisson_pdf(self, lambd, steps, paths) --> Pdf of poisson process
+        5.6 compare_interval(self, lambd, steps, paths) --> Picking intervals for validation
+    6. hazard_rate(data) --> Non-bootstrapping algorithm for hazard rates
+    7. bootstrap_algo(data) --> Bootstrapping algorithm
+    
+/Warnings/:
+    Do not run the script directly. Some validation codes require mark-out to avoid them runnng, since 30,000 simulations for each task cost per 30-50 minutes running
+    
+
+/Potential improvements/:
+    Could use more vectorizations. Feel free to modify them for better computing performances
+
+
