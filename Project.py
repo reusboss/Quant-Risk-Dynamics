@@ -1,10 +1,4 @@
 '''
-Id:          "$Id$"
-Copyright:   Copyright (c) 2022 Bank of America Merrill Lynch, All Rights Reserved
-Description:
-Test:
-'''
-'''
 This is a project that takes the input from the CDS curve and generate a
 poisson process accordingly. Besides, creating two correlated poisson 
 processes, through OOP Programming.
